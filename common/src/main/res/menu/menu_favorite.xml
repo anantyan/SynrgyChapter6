@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/unbookmark"
+        android:icon="@drawable/ic_bookmark"
+        android:title="@string/txt_unbookmark"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/bookmark"
+        android:icon="@drawable/ic_bookmark_filled"
+        android:title="@string/txt_bookmark"
+        app:showAsAction="ifRoom" />
+</menu>

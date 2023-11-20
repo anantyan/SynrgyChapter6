@@ -1,28 +1,26 @@
 package id.anantyan.foodapps.presentation.home
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.ViewSizeResolver
-import id.anantyan.foodapps.R
-import id.anantyan.foodapps.data.remote.model.ResultsItem
+import id.anantyan.foodapps.common.R
 import id.anantyan.foodapps.databinding.ListItemHomeBinding
+import id.anantyan.foodapps.domain.model.FoodModel
 
-class HomeAdapter :
-    ListAdapter<ResultsItem, HomeAdapter.ResultsItemViewHolder>(ResultsItemComparator) {
+class HomeAdapter : ListAdapter<FoodModel, HomeAdapter.ResultsItemViewHolder>(ResultsItemComparator) {
 
-    private var _onClick: ((position: Int, item: ResultsItem) -> Unit)? = null
+    private var _onClick: ((position: Int, item: FoodModel) -> Unit)? = null
 
-    private object ResultsItemComparator : DiffUtil.ItemCallback<ResultsItem>() {
-        override fun areItemsTheSame(oldItem: ResultsItem, newItem: ResultsItem): Boolean {
+    private object ResultsItemComparator : DiffUtil.ItemCallback<FoodModel>() {
+        override fun areItemsTheSame(oldItem: FoodModel, newItem: FoodModel): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: ResultsItem, newItem: ResultsItem): Boolean {
+        override fun areContentsTheSame(oldItem: FoodModel, newItem: FoodModel): Boolean {
             return oldItem == newItem
         }
     }
@@ -51,7 +49,7 @@ class HomeAdapter :
             }
         }
 
-        fun bindItem(item: ResultsItem) {
+        fun bindItem(item: FoodModel) {
             binding.imgHeadline.load(item.image) {
                 crossfade(true)
                 placeholder(R.drawable.img_loading)
@@ -64,7 +62,7 @@ class HomeAdapter :
         }
     }
 
-    fun onClick(listener: (position: Int, item: ResultsItem) -> Unit) {
+    fun onClick(listener: (position: Int, item: FoodModel) -> Unit) {
         _onClick = listener
     }
 }

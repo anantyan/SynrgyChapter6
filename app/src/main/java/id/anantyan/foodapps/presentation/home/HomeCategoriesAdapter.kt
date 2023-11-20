@@ -1,15 +1,13 @@
 package id.anantyan.foodapps.presentation.home
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import id.anantyan.foodapps.databinding.ListItemTypeBinding
 
-class HomeCategoriesAdapter :
-    ListAdapter<HomeCategoriesModel, HomeCategoriesAdapter.HomeCategoriesModelViewHolder>(
+class HomeCategoriesAdapter : ListAdapter<HomeCategoriesModel, HomeCategoriesAdapter.HomeCategoriesModelViewHolder>(
         HomeCategoriesModelComparator
     ) {
     private var _onClick: ((position: Int, item: HomeCategoriesModel) -> Unit)? = null

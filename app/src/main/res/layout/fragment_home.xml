@@ -48,7 +48,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:itemCount="2" />
+                tools:itemCount="1"
+                tools:listitem="@layout/list_item_type" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_home"
@@ -60,7 +61,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_type">
+                app:layout_constraintTop_toBottomOf="@+id/rv_type"
+                tools:itemCount="1"
+                tools:listitem="@layout/list_item_home">
 
             </androidx.recyclerview.widget.RecyclerView>
 

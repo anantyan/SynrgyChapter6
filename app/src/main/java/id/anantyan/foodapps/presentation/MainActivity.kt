@@ -17,11 +17,9 @@ import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import id.anantyan.foodapps.NavGraphMainDirections
 import id.anantyan.foodapps.R
-import id.anantyan.foodapps.common.updateResources
 import id.anantyan.foodapps.databinding.ActivityMainBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import java.util.Locale
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {

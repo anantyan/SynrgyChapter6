@@ -2,20 +2,16 @@ package id.anantyan.foodapps.presentation.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.anantyan.foodapps.R
+import id.anantyan.foodapps.common.R
 import id.anantyan.foodapps.common.UIState
-import id.anantyan.foodapps.domain.model.UserModel
 import id.anantyan.foodapps.domain.repository.PreferencesUseCase
 import id.anantyan.foodapps.domain.repository.UserUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
-import java.lang.Thread.State
 import javax.inject.Inject
 
 @HiltViewModel

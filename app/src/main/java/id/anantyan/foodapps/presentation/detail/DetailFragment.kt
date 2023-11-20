@@ -2,11 +2,12 @@ package id.anantyan.foodapps.presentation.detail
 
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -19,14 +20,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import coil.load
 import coil.size.ViewSizeResolver
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
-import id.anantyan.foodapps.R
+import id.anantyan.foodapps.common.R
 import id.anantyan.foodapps.common.UIState
-import id.anantyan.foodapps.common.calculateSpanCount
 import id.anantyan.foodapps.common.calculateSpanCountSmall
 import id.anantyan.foodapps.databinding.FragmentDetailBinding
 import kotlinx.coroutines.flow.launchIn
@@ -34,7 +33,7 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DetailFragment : Fragment() {
+class DetailFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
@@ -60,6 +59,7 @@ class DetailFragment : Fragment() {
     }
 
     private fun bindView() {
+        binding.toolbar.setOnMenuItemClickListener(this)
         binding.toolbar.navigationIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_keyboard_backspace)
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
@@ -89,6 +89,18 @@ class DetailFragment : Fragment() {
     }
 
     private fun bindObserver() {
+        viewModel.checkFood(args.idRecipe)
+
+        viewModel.stateBookmarked.onEach { state: Boolean ->
+            if (state) {
+                binding.toolbar.menu.findItem(R.id.unbookmark).isVisible = false
+                binding.toolbar.menu.findItem(R.id.bookmark).isVisible = true
+            } else {
+                binding.toolbar.menu.findItem(R.id.unbookmark).isVisible = true
+                binding.toolbar.menu.findItem(R.id.bookmark).isVisible = false
+            }
+        }.flowWithLifecycle(viewLifecycleOwner.lifecycle).launchIn(viewLifecycleOwner.lifecycleScope)
+
         viewModel.result(args.idRecipe).onEach { state ->
             when (state) {
                 is UIState.Loading -> {
@@ -140,5 +152,19 @@ class DetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.unbookmark -> {
+                viewModel.bookmark(args.idRecipe)
+                true
+            }
+            R.id.bookmark -> {
+                viewModel.unbookmark(args.idRecipe)
+                true
+            }
+            else -> false
+        }
     }
 }

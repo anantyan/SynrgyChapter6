@@ -2,13 +2,12 @@ package id.anantyan.foodapps.presentation.detail
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ListAdapter
-import id.anantyan.foodapps.data.remote.model.ExtendedIngredientsItem
+import androidx.recyclerview.widget.RecyclerView
 import id.anantyan.foodapps.databinding.ListItemDetailIngredientsBinding
+import id.anantyan.foodapps.domain.model.ExtendedIngredientsItem
 
 class DetailIngredientsAdapter : ListAdapter<ExtendedIngredientsItem, DetailIngredientsAdapter.ExtendedIngredientsItemViewHolder>(
     ExtendedIngredientsItemComparator

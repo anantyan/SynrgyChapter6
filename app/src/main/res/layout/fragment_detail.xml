@@ -19,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:elevation="0dp"
-            android:theme="?attr/actionBarStyle" />
+            android:theme="?attr/actionBarStyle"
+            app:menu="@menu/menu_favorite" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -123,16 +124,6 @@
                 app:layout_constraintStart_toStartOf="@+id/img_detail"
                 app:layout_constraintTop_toBottomOf="@+id/img_detail" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/txt_save"
-                app:icon="@drawable/ic_bookmark"
-                app:layout_constraintEnd_toEndOf="@+id/img_detail"
-                app:layout_constraintTop_toBottomOf="@+id/txt_title" />
-
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/img_detail"
                 android:layout_width="0dp"
@@ -153,10 +144,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:src="@drawable/ic_servings"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_save" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_source_name" />
 
             <TextView
                 android:id="@+id/txt_servings"
@@ -174,11 +165,11 @@
                 android:id="@+id/imageView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_schedule"
                 app:layout_constraintEnd_toStartOf="@+id/txt_prepare_on_minutes"
-                app:layout_constraintTop_toBottomOf="@+id/btn_save" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_source_name" />
 
             <TextView
                 android:id="@+id/txt_prepare_on_minutes"
@@ -195,13 +186,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
                 android:text="Creators"
                 android:textAppearance="@style/TextAppearance.Foodapps.LabelMedium"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_save"
-                app:layout_constraintEnd_toStartOf="@+id/btn_save"
+                app:layout_constraintEnd_toEndOf="@+id/txt_title"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btn_save" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_title" />
 
             <TextView
                 android:id="@+id/txt_summary"

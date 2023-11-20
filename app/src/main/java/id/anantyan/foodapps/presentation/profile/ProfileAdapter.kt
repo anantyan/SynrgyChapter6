@@ -1,11 +1,10 @@
 package id.anantyan.foodapps.presentation.profile
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import id.anantyan.foodapps.databinding.ListItemProfileBinding
 
 class ProfileAdapter : ListAdapter<ProfileItemModel, ProfileAdapter.ProfileItemModelViewHolder>(

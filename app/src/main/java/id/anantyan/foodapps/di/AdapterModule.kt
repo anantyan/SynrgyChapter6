@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import id.anantyan.foodapps.presentation.detail.DetailIngredientsAdapter
 import id.anantyan.foodapps.presentation.detail.DetailInstructionsAdapter
+import id.anantyan.foodapps.presentation.favorite.FavoriteAdapter
 import id.anantyan.foodapps.presentation.home.HomeAdapter
 import id.anantyan.foodapps.presentation.home.HomeCategoriesAdapter
 import id.anantyan.foodapps.presentation.profile.ProfileAdapter
@@ -21,6 +22,11 @@ object AdapterModule {
     @Provides
     fun provideDetailInstructionsAdapter(): DetailInstructionsAdapter {
         return DetailInstructionsAdapter()
+    }
+
+    @Provides
+    fun provideFavoriteAdapter(): FavoriteAdapter {
+        return FavoriteAdapter()
     }
 
     @Provides
