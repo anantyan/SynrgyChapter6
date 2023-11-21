@@ -39,6 +39,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -59,7 +60,6 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
@@ -69,6 +69,8 @@ dependencies {
     implementation("io.coil-kt:coil:2.4.0")
 
     implementation("com.github.anderscheow:validator:3.0.3")
+
+    implementation("com.github.SimformSolutionsPvtLtd:SSImagePicker:2.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

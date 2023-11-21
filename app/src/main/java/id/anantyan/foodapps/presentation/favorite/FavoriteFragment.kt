@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import id.anantyan.foodapps.common.R
 import id.anantyan.foodapps.common.calculateSpanCount
 import id.anantyan.foodapps.databinding.FragmentFavoriteBinding
 import id.anantyan.foodapps.domain.model.FoodModel
@@ -47,7 +48,7 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun bindView() {
-        binding.toolbar.title = "Bookmark"
+        binding.toolbar.title = getString(R.string.menu_favorites)
         binding.toolbar.isTitleCentered = true
 
         binding.rvFavorite.setHasFixedSize(true)

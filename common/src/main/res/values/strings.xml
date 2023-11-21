@@ -54,4 +54,10 @@
     <string name="txt_instructions">Instructions</string>
     <string name="txt_unbookmark">Save Item Favorite</string>
     <string name="txt_bookmark">Remove Item Favorite</string>
+    <string name="txt_choose_to_change">Select the one you want to change</string>
+    <string name="txt_choose_load_photo">Choose load photo</string>
+    <string name="txt_photo_profile">Photo Profile</string>
+    <string name="txt_biodata" translatable="false">Biodata</string>
+    <string name="txt_camera">Camera</string>
+    <string name="txt_choose_photo">Choose Photo</string>
 </resources>

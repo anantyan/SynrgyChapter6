@@ -53,4 +53,9 @@
     <string name="txt_instructions">Instruksi</string>
     <string name="txt_unbookmark">Simpan Item ke Kesukaan</string>
     <string name="txt_bookmark">Hapus Item dari Kesukaan</string>
+    <string name="txt_choose_to_change">Pilih yang ingin Anda ubah</string>
+    <string name="txt_choose_load_photo">Pilih memuat foto</string>
+    <string name="txt_photo_profile">Foto Profil</string>
+    <string name="txt_camera">Kamera</string>
+    <string name="txt_choose_photo">Pilih Foto</string>
 </resources>

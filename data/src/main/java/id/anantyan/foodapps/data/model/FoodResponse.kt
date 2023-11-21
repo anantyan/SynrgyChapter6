@@ -27,6 +27,8 @@ fun RecipeResponse.toModel(): FoodModel {
         id = id,
         summary = summary,
         image = image,
+        sourceName = sourceName,
+        preparationMinutes = preparationMinutes,
         extendedIngredients = extendedIngredients?.map { it.toModel() } ?: emptyList()
     )
 }
