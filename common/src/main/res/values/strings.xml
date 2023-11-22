@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">Foodapps</string>
     <string name="menu_foods">Foods</string>
     <string name="menu_favorites">Favorites</string>
     <string name="menu_profile">Profile</string>
