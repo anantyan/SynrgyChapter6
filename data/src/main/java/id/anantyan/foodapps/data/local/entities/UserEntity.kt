@@ -17,5 +17,8 @@ data class UserEntity(
     val email: String? = null,
 
     @ColumnInfo(name = "password")
-    val password: String? = null
+    val password: String? = null,
+
+    @ColumnInfo(name = "image")
+    val image: String? = null
 )

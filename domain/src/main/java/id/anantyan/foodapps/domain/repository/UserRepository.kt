@@ -8,5 +8,5 @@ interface UserRepository {
     fun login(user: UserModel): Flow<UIState<UserModel>>
     fun register(user: UserModel): Flow<UIState<Int>>
     fun profile(id: Int?): Flow<UIState<UserModel>>
-    fun changeProfile(user: UserModel): Flow<UIState<Int>>
+    suspend fun changeProfile(user: UserModel)
 }

@@ -8,5 +8,5 @@ class UserUseCase(private val userRepository: UserRepository) {
     fun executeLogin(user: UserModel): Flow<UIState<UserModel>> = userRepository.login(user)
     fun executeRegister(user: UserModel): Flow<UIState<Int>> = userRepository.register(user)
     fun executeProfile(id: Int?): Flow<UIState<UserModel>> = userRepository.profile(id)
-    fun executeChangeProfile(user: UserModel): Flow<UIState<Int>> = userRepository.changeProfile(user)
+    suspend fun executeChangeProfile(user: UserModel) = userRepository.changeProfile(user)
 }

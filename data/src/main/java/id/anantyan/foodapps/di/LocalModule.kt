@@ -25,7 +25,7 @@ object LocalModule {
             context.applicationContext,
             RoomDB::class.java,
             "db_app"
-        ).addMigrations(MIGRATION_1_2).fallbackToDestructiveMigration().build()
+        ).addMigrations(MIGRATION_1_2, MIGRATION_2_3).fallbackToDestructiveMigration().build()
     }
 
     private val MIGRATION_1_2: Migration = object : Migration(1, 2) {
@@ -38,7 +38,17 @@ object LocalModule {
     }
 
     private val MIGRATION_2_3: Migration = object : Migration(2, 3) {
-        override fun migrate(db: SupportSQLiteDatabase) {}
+        override fun migrate(db: SupportSQLiteDatabase) {
+            db.execSQL("CREATE TABLE users_new (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT, email TEXT, password TEXT, image TEXT)")
+            db.execSQL("INSERT INTO users_new (id, username, email, password) SELECT id, username, email, password FROM tbl_users")
+            db.execSQL("DROP TABLE tbl_users")
+            db.execSQL("ALTER TABLE users_new RENAME TO tbl_users")
+
+            db.execSQL("CREATE TABLE foods_new (readyInMinutes INTEGER, image TEXT, servings INTEGER, id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, title TEXT, userId INTEGER)")
+            db.execSQL("INSERT INTO foods_new (readyInMinutes, image, servings, id, title, userId) SELECT readyInMinutes, image, servings, id, title, userId FROM tbl_foods")
+            db.execSQL("DROP TABLE tbl_foods")
+            db.execSQL("ALTER TABLE foods_new RENAME TO tbl_foods")
+        }
     }
 
     @Provides

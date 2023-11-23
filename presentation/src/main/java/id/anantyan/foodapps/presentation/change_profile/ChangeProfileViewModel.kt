@@ -21,18 +21,17 @@ class ChangeProfileViewModel @Inject constructor(
     private val userUseCase: UserUseCase,
     private val preferencesUseCase: PreferencesUseCase
 ) : ViewModel() {
-    private var _changeProfile: MutableStateFlow<UIState<Int>> = MutableStateFlow(UIState.Loading())
+    private var _changeProfile: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private var _checkProfile: MutableStateFlow<UIState<UserModel>> = MutableStateFlow(UIState.Loading())
 
     val getUserId: Int = runBlocking { preferencesUseCase.executeGetUserId().first() }
-    val changeProfile: StateFlow<UIState<Int>> = _changeProfile
+    val changeProfile: StateFlow<Boolean> = _changeProfile
     val checkProfile: StateFlow<UIState<UserModel>> = _checkProfile
 
     fun changeProfile(userModel: UserModel) {
         viewModelScope.launch {
-            userUseCase.executeChangeProfile(userModel).collect {
-                _changeProfile.value = it
-            }
+            userUseCase.executeChangeProfile(userModel)
+            _changeProfile.value = true
         }
     }
 

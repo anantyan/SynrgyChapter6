@@ -4,7 +4,6 @@ import id.anantyan.foodapps.common.R
 import id.anantyan.foodapps.common.UIState
 import id.anantyan.foodapps.data.local.dao.UsersDao
 import id.anantyan.foodapps.data.model.toEntity
-import id.anantyan.foodapps.data.model.toEntityUpdate
 import id.anantyan.foodapps.data.model.toModel
 import id.anantyan.foodapps.domain.model.UserModel
 import id.anantyan.foodapps.domain.repository.UserRepository
@@ -52,14 +51,7 @@ class UserRepositoryImpl(
         }
     }
 
-    override fun changeProfile(user: UserModel): Flow<UIState<Int>> {
-        return flow {
-            val result = usersDao.changeProfile(user.toEntityUpdate())
-            if (result != 0) {
-                emit(UIState.Success(R.string.txt_success_change_profile))
-            } else {
-                emit(UIState.Error(null, R.string.txt_invalid_change_profile))
-            }
-        }
+    override suspend fun changeProfile(user: UserModel) {
+        usersDao.changeProfile(user.id ?: -1, user.username, user.email, user.password)
     }
 }

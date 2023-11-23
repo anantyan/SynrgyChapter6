@@ -11,6 +11,8 @@ import id.anantyan.foodapps.domain.repository.PreferencesRepository
 import id.anantyan.foodapps.domain.repository.PreferencesUseCase
 import id.anantyan.foodapps.domain.repository.UserRepository
 import id.anantyan.foodapps.domain.repository.UserUseCase
+import id.anantyan.foodapps.domain.repository.UsersRepository
+import id.anantyan.foodapps.domain.repository.UsersUseCase
 import javax.inject.Singleton
 
 @Module
@@ -33,7 +35,13 @@ object DomainModule {
 
     @Singleton
     @Provides
-    fun provideUsersUseCase(userRepository: UserRepository): UserUseCase {
+    fun provideUserUseCase(userRepository: UserRepository): UserUseCase {
         return UserUseCase(userRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUsersUseCase(usersRepository: UsersRepository): UsersUseCase {
+        return UsersUseCase(usersRepository)
     }
 }

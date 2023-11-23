@@ -13,6 +13,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import id.anantyan.foodapps.data.remote.network.AppNetwork
 import id.anantyan.foodapps.data.remote.service.FoodsApi
+import id.anantyan.foodapps.data.remote.service.UploadApi
 import okhttp3.JavaNetCookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -21,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.net.CookieManager
 import java.util.Date
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -72,7 +74,8 @@ object RemoteModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(
+    @Named("RECIPE")
+    fun provideRecipeRetrofit(
         httpClient: OkHttpClient,
         gson: Gson
     ): Retrofit {
@@ -85,7 +88,29 @@ object RemoteModule {
 
     @Singleton
     @Provides
-    fun provideApi(retrofit: Retrofit): FoodsApi {
+    @Named("UPLOAD")
+    fun provideUploadRetrofit(
+        httpClient: OkHttpClient,
+        gson: Gson
+    ): Retrofit {
+        return Retrofit.Builder().apply {
+            client(httpClient)
+            baseUrl(AppNetwork.BASE_UPLOAD)
+            addConverterFactory(GsonConverterFactory.create(gson))
+        }.build()
+    }
+
+    @Singleton
+    @Provides
+    @Named("RECIPE")
+    fun provideRecipeApi(@Named("RECIPE") retrofit: Retrofit): FoodsApi {
         return retrofit.create(FoodsApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    @Named("UPLOAD")
+    fun provideUploadApi(@Named("UPLOAD") retrofit: Retrofit): UploadApi {
+        return retrofit.create(UploadApi::class.java)
     }
 }

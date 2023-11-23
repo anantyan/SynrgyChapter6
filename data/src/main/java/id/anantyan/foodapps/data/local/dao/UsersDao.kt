@@ -18,8 +18,11 @@ interface UsersDao {
     @Query("SELECT * FROM tbl_users WHERE id=:id")
     suspend fun profile(id: Int?): UserEntity?
 
-    @Update
-    suspend fun changeProfile(item: UserEntity): Int
+    @Query("UPDATE tbl_users SET username=:username, email=:email, password=:password WHERE id=:userId")
+    suspend fun changeProfile(userId: Int, username: String?, email: String?, password: String?)
+
+    @Query("UPDATE tbl_users SET image=:image WHERE id=:userId")
+    suspend fun changePhoto(userId: Int, image: String)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun register(item: UserEntity): Long

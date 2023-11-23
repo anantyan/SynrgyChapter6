@@ -25,14 +25,18 @@ import com.app.imagepickerlibrary.model.PickExtension
 import com.app.imagepickerlibrary.model.PickerType
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
-import id.anantyan.foodapps.presentation.NavGraphMainDirections
 import id.anantyan.foodapps.common.R
 import id.anantyan.foodapps.common.UIState
+import id.anantyan.foodapps.common.byteArray
 import id.anantyan.foodapps.common.createListDialog
+import id.anantyan.foodapps.common.deleteAllPath
+import id.anantyan.foodapps.common.path
+import id.anantyan.foodapps.presentation.NavGraphMainDirections
 import id.anantyan.foodapps.presentation.databinding.FragmentProfileBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment(), ImagePickerResultListener {
@@ -60,7 +64,6 @@ class ProfileFragment : Fragment(), ImagePickerResultListener {
     }
 
     private fun bindObserver() {
-        viewModel.showProfile()
         viewModel.showProfile.onEach { state ->
             when (state) {
                 is UIState.Loading -> {}
@@ -73,6 +76,30 @@ class ProfileFragment : Fragment(), ImagePickerResultListener {
                 }
             }
         }.flowWithLifecycle(lifecycle).launchIn(lifecycleScope)
+
+        viewModel.showPhoto.observe(viewLifecycleOwner) { photoUri ->
+            if (photoUri.isNotEmpty()) {
+                binding.imgProfile.load(photoUri) {
+                    crossfade(true)
+                    placeholder(R.drawable.img_loading_1x1)
+                    error(R.drawable.img_not_found_1x1)
+                    size(ViewSizeResolver(binding.imgProfile))
+                }
+            }
+        }
+
+        viewModel.changePhoto.observe(viewLifecycleOwner) { state ->
+            if (state) {
+                Toast.makeText(requireContext(), "Berhasil di simpan!", Toast.LENGTH_LONG).show()
+                requireContext().deleteAllPath()
+            } else {
+                Toast.makeText(requireContext(), "Gagal di simpan!", Toast.LENGTH_LONG).show()
+                requireContext().deleteAllPath()
+            }
+        }
+
+        viewModel.showProfile()
+        viewModel.showPhoto()
     }
 
     private fun bindView() {
@@ -165,11 +192,15 @@ class ProfileFragment : Fragment(), ImagePickerResultListener {
     }
 
     override fun onImagePick(uri: Uri?) {
-        binding.imgProfile.load(uri) {
-            crossfade(true)
-            placeholder(R.drawable.img_loading_1x1)
-            error(R.drawable.img_not_found_1x1)
-            size(ViewSizeResolver(binding.imgProfile))
+        uri?.let {
+            val path = uri.path(requireContext())
+            viewModel.changePhoto(path ?: "")
+            binding.imgProfile.load(path) {
+                crossfade(true)
+                placeholder(R.drawable.img_loading_1x1)
+                error(R.drawable.img_not_found_1x1)
+                size(ViewSizeResolver(binding.imgProfile))
+            }
         }
     }
 

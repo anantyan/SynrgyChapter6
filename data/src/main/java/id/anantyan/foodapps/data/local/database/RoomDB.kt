@@ -11,7 +11,7 @@ import id.anantyan.foodapps.data.local.entities.FoodEntity
     entities = [
         UserEntity::class,
         FoodEntity::class
-    ], version = 2, exportSchema = false
+    ], version = 3, exportSchema = false
 )
 abstract class RoomDB: RoomDatabase() {
     abstract fun usersDao(): UsersDao

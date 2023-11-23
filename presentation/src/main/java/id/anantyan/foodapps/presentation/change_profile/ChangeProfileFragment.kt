@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import id.anantyan.foodapps.common.R
 import id.anantyan.foodapps.common.UIState
 import id.anantyan.foodapps.common.emailValid
 import id.anantyan.foodapps.common.passwordValid
@@ -96,14 +97,8 @@ class ChangeProfileFragment : BottomSheetDialogFragment() {
         }.flowWithLifecycle(lifecycle).launchIn(lifecycleScope)
 
         viewModel.changeProfile.onEach { state ->
-            when (state) {
-                is UIState.Loading -> {}
-                is UIState.Success -> {
-                    Toast.makeText(requireContext(), getString(state.data!!), Toast.LENGTH_LONG).show()
-                }
-                is UIState.Error -> {
-                    Toast.makeText(requireContext(), getString(state.message!!), Toast.LENGTH_LONG).show()
-                }
+            if (state) {
+                Toast.makeText(requireContext(), getString(R.string.txt_success_change_profile), Toast.LENGTH_LONG).show()
             }
         }.flowWithLifecycle(lifecycle).launchIn(lifecycleScope)
     }

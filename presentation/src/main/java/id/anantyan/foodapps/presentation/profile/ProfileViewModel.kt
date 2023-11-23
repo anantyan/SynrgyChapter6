@@ -1,5 +1,7 @@
 package id.anantyan.foodapps.presentation.profile
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -7,21 +9,49 @@ import id.anantyan.foodapps.common.R
 import id.anantyan.foodapps.common.UIState
 import id.anantyan.foodapps.domain.repository.PreferencesUseCase
 import id.anantyan.foodapps.domain.repository.UserUseCase
+import id.anantyan.foodapps.domain.repository.UsersUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val preferencesUseCase: PreferencesUseCase,
-    private val userUseCase: UserUseCase
+    private val userUseCase: UserUseCase,
+    private val usersUseCase: UsersUseCase
 ) : ViewModel() {
     private var _showProfile: MutableStateFlow<UIState<List<ProfileItemModel>>> = MutableStateFlow(UIState.Loading())
+    private var _showPhoto: MutableLiveData<String> = MutableLiveData()
+    private var _changePhoto: MutableLiveData<Boolean> = MutableLiveData()
 
     val showProfile: StateFlow<UIState<List<ProfileItemModel>>> = _showProfile
+    val showPhoto: LiveData<String> = _showPhoto
+    val changePhoto: LiveData<Boolean> = _changePhoto
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    fun showPhoto() {
+        viewModelScope.launch {
+            preferencesUseCase.executeGetUserId().flatMapLatest {
+                userUseCase.executeProfile(it)
+            }.collect { state ->
+                _showPhoto.postValue(state.data?.image ?: "")
+            }
+        }
+    }
+
+    fun changePhoto(path: String) {
+        viewModelScope.launch {
+            preferencesUseCase.executeGetUserId().map {
+                usersUseCase.executeChangePhoto(it, path)
+            }.collect { state: Boolean ->
+                _changePhoto.postValue(state)
+            }
+        }
+    }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     fun showProfile() {
