@@ -57,5 +57,11 @@
     <string name="txt_choose_load_photo">Pilih memuat foto</string>
     <string name="txt_photo_profile">Foto Profil</string>
     <string name="txt_camera">Kamera</string>
-    <string name="txt_choose_photo">Pilih Foto</string>
+    <string name="txt_choose_photo">Galeri</string>
+    <string name="txt_success_upload">Unggah Sukses</string>
+    <string name="txt_success_upload_msg">Unggah Foto Berhasil!</string>
+    <string name="txt_progress_upload">Unggah Foto</string>
+    <string name="txt_progress_upload_msg">Unggah dalam Progress...</string>
+    <string name="txt_invalid_upload">Unggah Gagal</string>
+    <string name="txt_invalid_upload_msg">Unggah tidak valid dan gagal!</string>
 </resources>

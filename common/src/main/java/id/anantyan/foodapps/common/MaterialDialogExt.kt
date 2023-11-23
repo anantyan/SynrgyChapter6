@@ -14,6 +14,6 @@ fun MaterialAlertDialogBuilder.createListDialog(
             val selectedItem = items[which]
             onItemClick?.invoke(selectedItem)
         }
-        .setCancelable(false)
+        .setCancelable(true)
         .show()
 }

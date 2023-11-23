@@ -21,16 +21,13 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val preferencesUseCase: PreferencesUseCase,
-    private val userUseCase: UserUseCase,
-    private val usersUseCase: UsersUseCase
+    private val userUseCase: UserUseCase
 ) : ViewModel() {
     private var _showProfile: MutableStateFlow<UIState<List<ProfileItemModel>>> = MutableStateFlow(UIState.Loading())
     private var _showPhoto: MutableLiveData<String> = MutableLiveData()
-    private var _changePhoto: MutableLiveData<Boolean> = MutableLiveData()
 
     val showProfile: StateFlow<UIState<List<ProfileItemModel>>> = _showProfile
     val showPhoto: LiveData<String> = _showPhoto
-    val changePhoto: LiveData<Boolean> = _changePhoto
 
     @OptIn(ExperimentalCoroutinesApi::class)
     fun showPhoto() {
@@ -39,16 +36,6 @@ class ProfileViewModel @Inject constructor(
                 userUseCase.executeProfile(it)
             }.collect { state ->
                 _showPhoto.postValue(state.data?.image ?: "")
-            }
-        }
-    }
-
-    fun changePhoto(path: String) {
-        viewModelScope.launch {
-            preferencesUseCase.executeGetUserId().map {
-                usersUseCase.executeChangePhoto(it, path)
-            }.collect { state: Boolean ->
-                _changePhoto.postValue(state)
             }
         }
     }

@@ -57,10 +57,11 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
-
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
 
     implementation("com.google.dagger:hilt-android:2.48.1")
+    implementation("androidx.hilt:hilt-work:1.1.0")
     ksp("com.google.dagger:hilt-compiler:2.48.1")
 
     implementation("io.coil-kt:coil:2.4.0")

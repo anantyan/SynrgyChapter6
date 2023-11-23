@@ -1,12 +1,16 @@
 package id.anantyan.foodapps.presentation
 
+import android.Manifest
 import android.app.UiModeManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -25,6 +29,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private val viewModel: MainViewModel by viewModels()
+    private val permissionNotificationLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +76,12 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     ) {
         when (destination.id) {
             R.id.homeFragment -> binding.bottomNav.isVisible = true
-            R.id.profileFragment -> binding.bottomNav.isVisible = true
+            R.id.profileFragment -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    permissionNotificationLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+                binding.bottomNav.isVisible = true
+            }
             R.id.favoriteFragment -> binding.bottomNav.isVisible = true
             R.id.changeProfileFragment -> binding.bottomNav.isVisible = true
             R.id.settingFragment -> binding.bottomNav.isVisible = true

@@ -1,13 +1,19 @@
 package id.anantyan.foodapps.presentation.profile
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -27,12 +33,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import id.anantyan.foodapps.common.R
 import id.anantyan.foodapps.common.UIState
-import id.anantyan.foodapps.common.byteArray
 import id.anantyan.foodapps.common.createListDialog
-import id.anantyan.foodapps.common.deleteAllPath
 import id.anantyan.foodapps.common.path
 import id.anantyan.foodapps.presentation.NavGraphMainDirections
 import id.anantyan.foodapps.presentation.databinding.FragmentProfileBinding
+import id.anantyan.foodapps.work.uploadWorker
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -85,16 +90,6 @@ class ProfileFragment : Fragment(), ImagePickerResultListener {
                     error(R.drawable.img_not_found_1x1)
                     size(ViewSizeResolver(binding.imgProfile))
                 }
-            }
-        }
-
-        viewModel.changePhoto.observe(viewLifecycleOwner) { state ->
-            if (state) {
-                Toast.makeText(requireContext(), "Berhasil di simpan!", Toast.LENGTH_LONG).show()
-                requireContext().deleteAllPath()
-            } else {
-                Toast.makeText(requireContext(), "Gagal di simpan!", Toast.LENGTH_LONG).show()
-                requireContext().deleteAllPath()
             }
         }
 
@@ -194,7 +189,7 @@ class ProfileFragment : Fragment(), ImagePickerResultListener {
     override fun onImagePick(uri: Uri?) {
         uri?.let {
             val path = uri.path(requireContext())
-            viewModel.changePhoto(path ?: "")
+            requireContext().uploadWorker(path)
             binding.imgProfile.load(path) {
                 crossfade(true)
                 placeholder(R.drawable.img_loading_1x1)
