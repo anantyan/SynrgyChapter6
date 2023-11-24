@@ -42,6 +42,11 @@ The challenge results from the intensive learning of chapter 6 - Which is where 
 
 ### 🖼️ Snapshoot
 
+![Dependencies Graph](https://raw.githubusercontent.com/anantyan/SynrgyChapter6/44263be7e33281fa61f4e77b143e2f7de612b10c/generated/dependency-graph/project.dot.svg)
+![Desktop - 1](https://github.com/anantyan/SynrgyChapter6/assets/43742778/1cd207c3-45ec-495c-bb74-b6ca5dff2385)
+![Desktop - 2](https://github.com/anantyan/SynrgyChapter6/assets/43742778/5a926448-61b0-4853-beec-df54b23858de)
+![Desktop - 3](https://github.com/anantyan/SynrgyChapter6/assets/43742778/decce3da-9937-4122-aa98-39eb9a209a86)
+
 ### 📹 Capture Video
 
 `Not Found` - Developer is not providing Preview Video
