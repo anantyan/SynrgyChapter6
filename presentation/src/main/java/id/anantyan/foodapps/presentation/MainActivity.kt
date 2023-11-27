@@ -3,9 +3,12 @@ package id.anantyan.foodapps.presentation
 import android.Manifest
 import android.app.UiModeManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +22,8 @@ import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
+import id.anantyan.foodapps.common.createMessageDialog
+import id.anantyan.foodapps.common.permissionDialog
 import id.anantyan.foodapps.presentation.databinding.ActivityMainBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -77,15 +82,27 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         when (destination.id) {
             R.id.homeFragment -> binding.bottomNav.isVisible = true
             R.id.profileFragment -> {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    permissionNotificationLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-                }
+                requestPermissionOptions()
                 binding.bottomNav.isVisible = true
             }
             R.id.favoriteFragment -> binding.bottomNav.isVisible = true
             R.id.changeProfileFragment -> binding.bottomNav.isVisible = true
             R.id.settingFragment -> binding.bottomNav.isVisible = true
             else -> binding.bottomNav.isVisible = false
+        }
+    }
+
+    private fun requestPermissionOptions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            when {
+                shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
+                    permissionDialog(
+                        "Notification Permission Required",
+                        "Without the notification it is not possible to Information Upload Photo..."
+                    )
+                }
+                else -> { permissionNotificationLauncher.launch(Manifest.permission.POST_NOTIFICATIONS) }
+            }
         }
     }
 }

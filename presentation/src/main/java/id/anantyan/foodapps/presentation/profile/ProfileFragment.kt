@@ -110,7 +110,7 @@ class ProfileFragment : Fragment(), ImagePickerResultListener {
 
         binding.btnChange.setOnClickListener {
             val list = listOf(getString(R.string.txt_photo_profile), getString(R.string.txt_biodata))
-            MaterialAlertDialogBuilder(requireContext()).createListDialog(
+            requireContext().createListDialog(
                 title = getString(R.string.txt_choose_to_change),
                 items = list
             ) { item ->
@@ -144,7 +144,7 @@ class ProfileFragment : Fragment(), ImagePickerResultListener {
 
     private fun dialogChooseLoadPhoto() {
         val list = listOf(getString(R.string.txt_camera), getString(R.string.txt_choose_photo))
-        MaterialAlertDialogBuilder(requireContext()).createListDialog(
+        requireContext().createListDialog(
             title = getString(R.string.txt_choose_load_photo),
             items = list
         ) { item ->
